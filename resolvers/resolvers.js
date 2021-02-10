@@ -1,6 +1,8 @@
 const User = require("../models/User");
+const Vehicle = require("../models/Vehicle");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const imageUpload = require("../utils/image_uploader");
 const resolvers = {
   Query: {
     login: async (_, args) => {
@@ -57,6 +59,26 @@ const resolvers = {
         //     //   send the email saying welcome to ABGHire
         //   }
         return newUserSave;
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+    addVehicle: async (_, args) => {
+      try {
+        const {
+          name,
+          description,
+          availability,
+          isBooked,
+          price,
+        } = args.vehicleInput;
+        const newVehicle = new Vehicle({
+          name,
+          description,
+          price,
+        });
+        const newVehicleSave = await newVehicle.save();
+        return newVehicleSave;
       } catch (error) {
         throw new Error(error);
       }

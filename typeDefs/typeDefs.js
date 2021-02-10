@@ -16,6 +16,23 @@ const typeDefs = gql`
     email: String!
     password: String!
   }
+  type Vehicle {
+    _id: ID!
+    name: String!
+    description: String!
+    availability: String
+    isBooked: Boolean
+    photos: [String]
+    price: Float!
+  }
+  input VehicleInput {
+    name: String!
+    description: String!
+    availability: String
+    isBooked: Boolean
+    photos: [String]
+    price: Int!
+  }
   type AuthData {
     userId: ID!
     token: String!
@@ -28,11 +45,13 @@ const typeDefs = gql`
 
   type Query {
     users: [User]!
+    vehicles: [Vehicle]!
     login(loginInput: LoginInput): AuthData!
   }
 
   type Mutation {
     registerUser(userInput: UserInput): User
+    addVehicle(vehicleInput: VehicleInput): Vehicle
   }
 `;
 module.exports = typeDefs;
