@@ -33,6 +33,30 @@ const typeDefs = gql`
     photos: [String]
     price: Int!
   }
+  type VehicleByID {
+    _id: ID!
+    name: String!
+    description: String!
+    availability: String
+    isBooked: Boolean
+    photos: [String]
+    price: Float!
+  }
+  input VehicleByIDInput {
+    vehicleID: ID!
+  }
+  type UserByID {
+    _id: ID!
+    name: String!
+    email: String!
+    password: String!
+    phoneNumber: String!
+    fullAddress: String!
+  }
+  input UserByIDInput {
+    userID: ID!
+  }
+
   type AuthData {
     userId: ID!
     token: String!
@@ -47,6 +71,8 @@ const typeDefs = gql`
     users: [User]!
     vehicles: [Vehicle]!
     login(loginInput: LoginInput): AuthData!
+    getVehicleByID(vechicleID: VehicleByIDInput): VehicleByID!
+    getUserByID(userID: UserByIDInput): UserByID!
   }
 
   type Mutation {

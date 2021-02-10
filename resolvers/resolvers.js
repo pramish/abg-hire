@@ -32,6 +32,45 @@ const resolvers = {
         throw new Error(error);
       }
     },
+
+    users: async (_, args) => {
+      try {
+        const allUsers = await User.find();
+        return allUsers;
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+    vehicles: async (_, args) => {
+      try {
+        const allVehicles = await Vehicle.find();
+        return allVehicles;
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+    getVehicleByID: async (_, args) => {
+      try {
+        const { vehicleID } = args.vechicleID;
+        const oneVehicle = await Vehicle.findById({
+          _id: vehicleID,
+        });
+        return oneVehicle;
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+    getUserByID: async (_, args) => {
+      try {
+        const { userID } = args.userID;
+        const oneUser = await User.findById({
+          _id: userID,
+        });
+        return oneUser;
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
   },
   Mutation: {
     registerUser: async (_, args) => {
