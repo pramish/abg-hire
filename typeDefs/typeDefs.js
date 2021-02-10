@@ -33,6 +33,19 @@ const typeDefs = gql`
     photos: [String]
     price: Int!
   }
+  type Booking {
+    _id: ID!
+    name: String!
+    user: User!
+    vehicle: Vehicle!
+    createdAt: String!
+    updatedAt: String!
+  }
+  input BookingInput {
+    name: String!
+    user: ID!
+    vehicle: ID!
+  }
   type VehicleByID {
     _id: ID!
     name: String!
@@ -78,6 +91,8 @@ const typeDefs = gql`
   type Mutation {
     registerUser(userInput: UserInput): User
     addVehicle(vehicleInput: VehicleInput): Vehicle
+    bookVehicle(bookingInput: BookingInput): Booking
+    # cancelBooking(bookingID: ID!): Booking
   }
 `;
 module.exports = typeDefs;

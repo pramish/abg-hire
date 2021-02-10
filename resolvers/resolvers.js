@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const Vehicle = require("../models/Vehicle");
+const Booking = require("../models/Booking");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const imageUpload = require("../utils/image_uploader");
@@ -118,6 +119,31 @@ const resolvers = {
         });
         const newVehicleSave = await newVehicle.save();
         return newVehicleSave;
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+    bookVehicle: async (_, args) => {
+      try {
+        const { name, user, vehicle } = args.bookingInput;
+        const isRightUser = await User.findById({ _id: user });
+        if (!isRightUser) throw new Error("Sorry you're not the right user");
+        const isRightVehicle = await Vehicle.findById({ _id: vehicle });
+        if (!isRightVehicle)
+          throw new Error("Sorry the vehile you've chosen doesn't exists");
+        if (isRightVehicle.isBooked)
+          throw new Error("Vehicle is already booked. Please try again later");
+        const bookVehicle = new Booking({
+          name,
+          user,
+          vehicle,
+        });
+        const bookingSave = await bookVehicle.save();
+        isRightUser.bookings = bookingSave._id;
+        isRightUser.save();
+        isRightVehicle.isBooked = true;
+        isRightVehicle.save();
+        return bookingSave;
       } catch (error) {
         throw new Error(error);
       }
