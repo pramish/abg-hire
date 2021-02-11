@@ -31,3 +31,4 @@ const registerQuery = gql`
     }
   }
 `;
+export default loginQuery;

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { loginQuery } from "../../graphql/auth/auth";
 
 const Login = () => {
   const [logindata, setLogin] = useState({ email: "", password: "" });
   const handleSubmit = (e) => {
     e.preventDevault();
+    // Call the request endpoint here passing the data
   };
   return (
     <div>
