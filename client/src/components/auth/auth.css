@@ -55,6 +55,7 @@ input[type="checkbox"] {
   gap: normal;
   line-height: 21px;
   text-transform: capitalize;
+  padding-right: 16px;
 }
 
 .btn {
