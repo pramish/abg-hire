@@ -6,7 +6,13 @@ const PORT = process.env.PORT || 5000;
 const typeDefs = require("./typeDefs/typeDefs");
 const resolvers = require("./resolvers/resolvers");
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: (req) => ({
+    req,
+  }),
+});
 
 connect();
 

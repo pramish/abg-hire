@@ -46,6 +46,12 @@ const typeDefs = gql`
     user: ID!
     vehicle: ID!
   }
+  type ConfirmAccount {
+    message: String!
+  }
+  input ConfirmAccountInput {
+    token: String!
+  }
   type VehicleByID {
     _id: ID!
     name: String!
@@ -92,6 +98,7 @@ const typeDefs = gql`
     registerUser(userInput: UserInput): User
     addVehicle(vehicleInput: VehicleInput): Vehicle
     bookVehicle(bookingInput: BookingInput): Booking
+    confirmAccount(confirmAccountInput: ConfirmAccountInput): ConfirmAccount
     # cancelBooking(bookingID: ID!): Booking
   }
 `;

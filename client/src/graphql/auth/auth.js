@@ -1,10 +1,8 @@
 import { gql } from "graphql-request";
 
-const loginQuery = gql`
-  query {
-    login(
-      loginInput: { $email: String!, $password: String! }
-    ) {
+export const loginQuery = gql`
+  query login($email: String!, $password: String!) {
+    login(loginInput: { email: $email, password: $password }) {
       userId
       token
       tokenExpiration
@@ -12,18 +10,23 @@ const loginQuery = gql`
   }
 `;
 
-const registerQuery = gql`
-  mutation {
+export const registerQuery = gql`
+  mutation registerUser(
+    $email: String!
+    $password: String!
+    $name: String!
+    $phoneNumber: String!
+    $fullAddress: String!
+  ) {
     registerUser(
       userInput: {
-        $email: String!
-        $name: String!
-        $phoneNumber: String!
-        $fullAddress: String!
-        $password: String!
+        email: $email
+        password: $password
+        name: $name
+        phoneNumber: $phoneNumber
+        fullAddress: $fullAddress
       }
     ) {
-      _id
       name
       email
       phoneNumber
@@ -31,4 +34,10 @@ const registerQuery = gql`
     }
   }
 `;
-export default loginQuery;
+export const confirmAccountQuery = gql`
+  mutation confirmAccount($token: String!) {
+    confirmAccount(confirmAccountInput: { token: $token }) {
+      message
+    }
+  }
+`;
