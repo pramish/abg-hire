@@ -7,6 +7,7 @@ const Booking = require("../models/Booking");
 const Token = require("../models/Token");
 const imageUpload = require("../utils/image_uploader");
 const sendEmail = require("../utils/send_mail");
+const verifyUser = require("../config/verifyUser");
 const resolvers = {
   Query: {
     login: async (_, args) => {
@@ -36,9 +37,9 @@ const resolvers = {
         throw new Error(error);
       }
     },
-
-    users: async (_, args) => {
+    users: async (_, args, { req }) => {
       try {
+        await verifyUser(req);
         const allUsers = await User.find();
         return allUsers;
       } catch (error) {
@@ -53,8 +54,9 @@ const resolvers = {
         throw new Error(error);
       }
     },
-    getVehicleByID: async (_, args) => {
+    getVehicleByID: async (_, args, { req }) => {
       try {
+        await verifyUser(req);
         const { vehicleID } = args.vechicleID;
         const oneVehicle = await Vehicle.findById({
           _id: vehicleID,
@@ -64,8 +66,9 @@ const resolvers = {
         throw new Error(error);
       }
     },
-    getUserByID: async (_, args) => {
+    getUserByID: async (_, args, { req }) => {
       try {
+        await verifyUser(req);
         const { userID } = args.userID;
         const oneUser = await User.findById({
           _id: userID,
@@ -124,8 +127,9 @@ const resolvers = {
         throw new Error(error);
       }
     },
-    addVehicle: async (_, args) => {
+    addVehicle: async (_, args, { req }) => {
       try {
+        await verifyUser(req);
         const {
           name,
           description,
@@ -144,8 +148,9 @@ const resolvers = {
         throw new Error(error);
       }
     },
-    bookVehicle: async (_, args) => {
+    bookVehicle: async (_, args, { req }) => {
       try {
+        await verifyUser(req);
         const { name, user, vehicle } = args.bookingInput;
         const isRightUser = await User.findById({ _id: user });
         if (!isRightUser) throw new Error("Sorry you're not the right user");

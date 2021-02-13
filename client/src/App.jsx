@@ -11,13 +11,13 @@ function App() {
   // console.log(myURL);
   return (
     <Provider store={configureStore}>
-      <Router>
-        <Route path="/activate-account" component={ActivateAccount} />
-        <Switch>
-          <Login />
-          <Register />
-        </Switch>
-      </Router>
+      {/* <Router> */}
+      {/* <Route path="/activate-account" component={ActivateAccount} /> */}
+      {/* <Switch> */}
+      <Login />
+      <Register />
+      {/* </Switch> */}
+      {/* </Router> */}
     </Provider>
   );
 }
