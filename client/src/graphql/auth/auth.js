@@ -34,3 +34,10 @@ export const registerQuery = gql`
     }
   }
 `;
+export const confirmAccountQuery = gql`
+  mutation confirmAccount($token: String!) {
+    confirmAccount(confirmAccountInput: { token: $token }) {
+      message
+    }
+  }
+`;

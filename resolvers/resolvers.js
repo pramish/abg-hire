@@ -1,9 +1,12 @@
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const crypto = require("crypto-random-string");
 const User = require("../models/User");
 const Vehicle = require("../models/Vehicle");
 const Booking = require("../models/Booking");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const Token = require("../models/Token");
 const imageUpload = require("../utils/image_uploader");
+const sendEmail = require("../utils/send_mail");
 const resolvers = {
   Query: {
     login: async (_, args) => {
@@ -95,9 +98,27 @@ const resolvers = {
           phoneNumber,
         });
         const newUserSave = await newUser.save();
-        //   if (newUserSave) {
-        //     //   send the email saying welcome to ABGHire
-        //   }
+        if (newUserSave) {
+          //   send the email saying welcome to ABGHire
+          const token = crypto({
+            length: 50,
+            type: "hex",
+          });
+          const newToken = new Token({
+            userID: newUserSave._id,
+            token,
+          });
+          const tokenSave = await newToken.save();
+          if (tokenSave) {
+            await sendEmail(
+              newUserSave.name,
+              newUserSave.email,
+              `${process.env.PUBLIC_URL}/account-confirmation?code=${token}`
+            );
+            newUserSave.verificationSent = true;
+            await newUserSave.save();
+          }
+        }
         return newUserSave;
       } catch (error) {
         throw new Error(error);
@@ -144,6 +165,28 @@ const resolvers = {
         isRightVehicle.isBooked = true;
         isRightVehicle.save();
         return bookingSave;
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+    confirmAccount: async (_, args) => {
+      try {
+        let message = "Token is invalid or expired";
+        const { token } = args.confirmAccountInput;
+        const isTokenValid = await Token.findOne({ token });
+        if (isTokenValid) {
+          const isUser = await User.findByIdAndUpdate(
+            { _id: isTokenValid.userID },
+            {
+              $set: {
+                isActive: true,
+              },
+            },
+            { new: true }
+          );
+          if (isUser) message = "Your email has been verified. Please login";
+        }
+        return { message };
       } catch (error) {
         throw new Error(error);
       }
