@@ -14,6 +14,22 @@ const resolvers = {
       try {
         const { email, password } = args.loginInput;
         const isUserExists = await User.findOne({ email });
+        // if (!isUserExists.isActive) {
+        //   const newToken = new Token({
+        //     userID: newUserSave._id,
+        //     token,
+        //   });
+        //   await newToken.save();
+        //   await sendEmail(
+        //     isUserExists.name,
+        //     isUserExists.email,
+        //     `${process.env.PUBLIC_URL}/account-confirmation?code=${token}`
+        //   );
+        //   isUserExists.verificationSent = true;
+        //   throw new Error(
+        //     "Email has been sent to your email. Please verify and login again."
+        //   );
+        // }
         if (!isUserExists) throw new Error("Email or Password do not match");
         const isEqualPassword = await bcrypt.compare(
           password,
