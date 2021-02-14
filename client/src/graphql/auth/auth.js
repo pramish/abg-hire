@@ -9,7 +9,6 @@ export const loginQuery = gql`
     }
   }
 `;
-
 export const registerQuery = gql`
   mutation registerUser(
     $email: String!
