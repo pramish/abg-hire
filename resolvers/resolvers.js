@@ -70,9 +70,9 @@ const resolvers = {
         throw new Error(error);
       }
     },
-    getVehicleByID: async (_, args, { req }) => {
+    getVehicleByID: async (_, args) => {
       try {
-        await verifyUser(req);
+        // await verifyUser(req);
         const { vehicleID } = args.vechicleID;
         const oneVehicle = await Vehicle.findById({
           _id: vehicleID,

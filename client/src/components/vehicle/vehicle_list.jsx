@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Box, Button, Image, SimpleGrid } from "@chakra-ui/react";
+import { Button, Center, Image, Wrap, WrapItem } from "@chakra-ui/react";
 import "./vehicle_list.css";
 import GraphQlClient from "../../graphql/api";
 import { vehicleQuery } from "../../graphql/vehicle/vehicle";
@@ -14,35 +14,104 @@ const VehicleList = () => {
   }, []);
   return (
     <div className="vehicleContainer">
-      {allVehicles.map((eachVehicle) => (
-        <SimpleGrid
-          key={eachVehicle._id}
-          column={3}
-          minChildWidth="20px"
-          spacing="20px"
-        >
-          <Box bg="whitesmoke" height="300px">
-            <div className="itemContainer">
-              <Image
-                borderRadius="full"
-                boxSize="150px"
-                src="https://bit.ly/sage-adebayo"
-                alt="Segun Adebayo"
-              />
-              <p>Name: {eachVehicle.name}</p>
-              <p>Description: {eachVehicle.description}</p>
-              <p>Available from: {eachVehicle.availability}</p>
-              <p>Price: {eachVehicle.price}</p>
-              <p>Booked: {eachVehicle.isBooked ? "Booked" : "Available"}</p>
-              <Link to={"/" + eachVehicle._id}>
-                <Button colorScheme="teal" variant="outline">
-                  Select
-                </Button>
-              </Link>
-            </div>
-          </Box>
-        </SimpleGrid>
-      ))}
+      <Wrap>
+        <WrapItem>
+          {allVehicles.map((eachVehicle) => (
+            <Center w="180px" h="400px" bg="red.200">
+              <div className="itemContainer">
+                <Image
+                  borderRadius="md"
+                  boxSize="150px"
+                  src="https://bit.ly/sage-adebayo"
+                  alt={eachVehicle.name}
+                />
+                <p>Name: {eachVehicle.name}</p>
+                <p>Description: {eachVehicle.description}</p>
+                <p>Available from: {eachVehicle.availability}</p>
+                <p>Price: {eachVehicle.price}</p>
+                <p>Booked: {eachVehicle.isBooked ? "Booked" : "Available"}</p>
+                <Link to={"/" + eachVehicle._id}>
+                  <Button colorScheme="teal" variant="outline">
+                    Select
+                  </Button>
+                </Link>
+              </div>
+            </Center>
+          ))}
+        </WrapItem>
+        <WrapItem>
+          {allVehicles.map((eachVehicle) => (
+            <Center w="180px" h="400px" bg="red.200">
+              <div className="itemContainer">
+                <Image
+                  borderRadius="md"
+                  boxSize="150px"
+                  src="https://bit.ly/sage-adebayo"
+                  alt={eachVehicle.name}
+                />
+                <p>Name: {eachVehicle.name}</p>
+                <p>Description: {eachVehicle.description}</p>
+                <p>Available from: {eachVehicle.availability}</p>
+                <p>Price: {eachVehicle.price}</p>
+                <p>Booked: {eachVehicle.isBooked ? "Booked" : "Available"}</p>
+                <Link to={"/" + eachVehicle._id}>
+                  <Button colorScheme="teal" variant="outline">
+                    Select
+                  </Button>
+                </Link>
+              </div>
+            </Center>
+          ))}
+        </WrapItem>
+        <WrapItem>
+          {allVehicles.map((eachVehicle) => (
+            <Center w="180px" h="400px" bg="red.200">
+              <div className="itemContainer">
+                <Image
+                  borderRadius="md"
+                  boxSize="150px"
+                  src="https://bit.ly/sage-adebayo"
+                  alt={eachVehicle.name}
+                />
+                <p>Name: {eachVehicle.name}</p>
+                <p>Description: {eachVehicle.description}</p>
+                <p>Available from: {eachVehicle.availability}</p>
+                <p>Price: {eachVehicle.price}</p>
+                <p>Booked: {eachVehicle.isBooked ? "Booked" : "Available"}</p>
+                <Link to={"/" + eachVehicle._id}>
+                  <Button colorScheme="teal" variant="outline">
+                    Select
+                  </Button>
+                </Link>
+              </div>
+            </Center>
+          ))}
+        </WrapItem>
+        <WrapItem>
+          {allVehicles.map((eachVehicle) => (
+            <Center w="180px" h="400px" bg="red.200">
+              <div className="itemContainer">
+                <Image
+                  borderRadius="md"
+                  boxSize="150px"
+                  src="https://bit.ly/sage-adebayo"
+                  alt={eachVehicle.name}
+                />
+                <p>Name: {eachVehicle.name}</p>
+                <p>Description: {eachVehicle.description}</p>
+                <p>Available from: {eachVehicle.availability}</p>
+                <p>Price: {eachVehicle.price}</p>
+                <p>Booked: {eachVehicle.isBooked ? "Booked" : "Available"}</p>
+                <Link to={"/" + eachVehicle._id}>
+                  <Button colorScheme="teal" variant="outline">
+                    Select
+                  </Button>
+                </Link>
+              </div>
+            </Center>
+          ))}
+        </WrapItem>
+      </Wrap>
     </div>
   );
 };

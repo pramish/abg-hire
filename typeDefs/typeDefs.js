@@ -38,13 +38,15 @@ const typeDefs = gql`
     name: String!
     user: User!
     vehicle: Vehicle!
-    createdAt: String!
-    updatedAt: String!
+    from: String
+    to: String
   }
   input BookingInput {
     name: String!
     user: ID!
     vehicle: ID!
+    from: String
+    to: String
   }
   type ConfirmAccount {
     message: String!
@@ -62,7 +64,7 @@ const typeDefs = gql`
     price: Float!
   }
   input VehicleByIDInput {
-    vehicleID: ID!
+    vehicleID: String!
   }
   type UserByID {
     _id: ID!
